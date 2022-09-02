@@ -3,10 +3,12 @@ import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-
+import timerStateReducer from './features/timerStateSlice';
 
 const store = configureStore({
-  reducer: {}
+  reducer: {
+    timerState: timerStateReducer,
+  }
 });
 
 const root = ReactDOM.createRoot(
