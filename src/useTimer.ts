@@ -5,10 +5,7 @@ import { selectCurrentMinute, selectTimerState, selectTotalBreakTime, selectTota
 import { setTimerState } from './features/timerStateSlice';
 import { incrementCurrentMinute, setCurrentMinute } from "./features/currentMinuteSlice";
 
-const useTimer = (
-    // totalTime: number,
-    // totalBreakTime: number
-) => {    
+const useTimer = () => {    
     const dispatch = useDispatch();
 
     const timerState = useSelector(selectTimerState)
@@ -17,7 +14,6 @@ const useTimer = (
     const currentMinute = useSelector(selectCurrentMinute)
 
 
-    //const [currentMinute, setCurrentMinute] = useState<number>(0);
     const minuteRateIndex = useRef(0);
     const minuteRateArray = useRef<number[]>([]);
     const rateSwitcherInterval = useRef(Math.ceil(totalTime / 3));
