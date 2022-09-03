@@ -1,14 +1,16 @@
 import React, { useEffect, useRef} from 'react'
 import { useSelector } from 'react-redux';
-import { selectTimerState } from '../../store';
+import { selectCurrentMinute, selectTimerState, selectTotalBreakTime, selectTotalTime } from '../../store';
 
-interface Props {
-    timeLeft: number;
-}
 
-function TimerDisplayContent({ timeLeft }: Props) {
+
+function TimerDisplayContent() {
     const timeLeftRef = useRef<HTMLHeadingElement>(null);
-    const timerState = useSelector(selectTimerState)
+    const timerState = useSelector(selectTimerState);
+    const totalTime = useSelector(selectTotalTime)
+    const totalBreakTime = useSelector(selectTotalBreakTime)
+    const currentMinute = useSelector(selectCurrentMinute)
+    const timeLeft = timerState === "break" ? totalBreakTime - currentMinute : totalTime - currentMinute
     
     useEffect(() => {
         (timerState === "active" || timerState === "break") ?

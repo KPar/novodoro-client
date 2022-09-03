@@ -1,28 +1,35 @@
 import { useEffect, useRef, useState } from "react";
 import calculateMinuteRateArray from "./calculateMinuteRateArray";
 import { useDispatch, useSelector } from "react-redux";
-import { selectTimerState } from "./store";
+import { selectCurrentMinute, selectTimerState, selectTotalBreakTime, selectTotalTime } from "./store";
 import { setTimerState } from './features/timerStateSlice';
+import { incrementCurrentMinute, setCurrentMinute } from "./features/currentMinuteSlice";
 
 const useTimer = (
-    totalTime: number,
-    totalBreakTime: number
-) => {
-    const timerState = useSelector(selectTimerState)
+    // totalTime: number,
+    // totalBreakTime: number
+) => {    
     const dispatch = useDispatch();
-    const [currentMinute, setCurrentMinute] = useState<number>(0);
+
+    const timerState = useSelector(selectTimerState)
+    const totalTime = useSelector(selectTotalTime)
+    const totalBreakTime = useSelector(selectTotalBreakTime)
+    const currentMinute = useSelector(selectCurrentMinute)
+
+
+    //const [currentMinute, setCurrentMinute] = useState<number>(0);
     const minuteRateIndex = useRef(0);
     const minuteRateArray = useRef<number[]>([]);
     const rateSwitcherInterval = useRef(Math.ceil(totalTime / 3));
     const runningTimeoutRef = useRef<NodeJS.Timeout>();
 
     const startTimer = () => {
-        setCurrentMinute(prev => prev + 1);
+        dispatch(incrementCurrentMinute(1));
         runningTimeoutRef.current = setTimeout(startTimer, 1000 * minuteRateArray.current[minuteRateIndex.current]);
     }
 
     const startBreakTimer = () => {
-        setCurrentMinute(prev => prev + 1);
+        dispatch(incrementCurrentMinute(1));
         runningTimeoutRef.current = setTimeout(startBreakTimer, 1000 * 60);
     }
 
@@ -32,7 +39,7 @@ const useTimer = (
             runningTimeoutRef.current = setTimeout(startTimer, 1000 * minuteRateArray.current[minuteRateIndex.current]);
         } else if (timerState === "inactive" || timerState === "completed") {
             //if inactive or completed, reset currentMinute
-            setCurrentMinute(0);
+            dispatch(setCurrentMinute(0));
             clearTimeout(runningTimeoutRef.current);
             minuteRateIndex.current = 0;
             minuteRateArray.current = [];
@@ -43,11 +50,11 @@ const useTimer = (
             clearTimeout(runningTimeoutRef.current);
         } else if (timerState === "break") {
             //once break is active, reset currentMinute
-            setCurrentMinute(0);
+            dispatch(setCurrentMinute(0));
             runningTimeoutRef.current = setTimeout(startBreakTimer, 1000 * 60);
         } else if (timerState === "completed break") {
             //once completed break, reset currentMinute
-            setCurrentMinute(0);
+            dispatch(setCurrentMinute(0));
             clearTimeout(runningTimeoutRef.current);
         }
 
@@ -74,7 +81,6 @@ const useTimer = (
         }
     }, [currentMinute])
 
-    return { currentMinute };
 
 }
 
