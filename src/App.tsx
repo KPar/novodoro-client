@@ -1,26 +1,28 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import EditTimerDialog from "./components/EditTimerDialog";
 import Navigation from "./components/Navigation";
 import TimerController from "./components/TimerController";
 import TimerDisplay from "./components/TimerDisplay/TimerDisplay";
 import WelcomePopUp from "./components/WelcomePopUp";
 import './index.css';
+import { selectTimerState } from "./store";
 import useTimer from "./useTimer";
 
 function App() {
-  const [timerState, setTimerState] = useState<"inactive" | "active" | "paused" | "completed" | "break" | "completed break">("inactive");
+  const timerState = useSelector(selectTimerState)
   const [totalTime, setTotalTime] = useState<number>(25);
   const [totalBreakTime, setTotalBreakTime] = useState<number>(5);
 
-  const { currentMinute } = useTimer(timerState, setTimerState, totalTime, totalBreakTime)
+  const { currentMinute } = useTimer(totalTime, totalBreakTime)
 
   return (
     <div>
       <Navigation />
       <div id="App_timerContainer">
         <div>
-          <TimerDisplay timerState={timerState} timeLeft={timerState === "break" ? totalBreakTime - currentMinute : totalTime - currentMinute} />
-          <TimerController timerState={timerState} setTimerState={setTimerState} />
+          <TimerDisplay timeLeft={timerState === "break" ? totalBreakTime - currentMinute : totalTime - currentMinute} />
+          <TimerController />
         </div>
       </div>
       <EditTimerDialog />

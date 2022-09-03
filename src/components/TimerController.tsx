@@ -1,29 +1,30 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { setTimerState } from '../features/timerStateSlice';
+import { selectTimerState } from '../store';
 
-interface Props {
-  timerState: "inactive" | "active" | "paused" | "completed" | "break" | "completed break";
-  setTimerState: React.Dispatch<React.SetStateAction<"inactive" | "active" | "paused" | "completed" | "break" | "completed break">>;
-}
+function TimerController() {
+  const timerState = useSelector(selectTimerState)
+  const dispatch = useDispatch();
 
-function TimerController({timerState, setTimerState}: Props) {
   const onStart = () => {
-    setTimerState("active");
+    dispatch(setTimerState("active"));
   }
 
   const onPause = () => {
-    setTimerState("paused");
+    dispatch(setTimerState("paused"));
   }
 
   const onEnd = () => {
-    setTimerState("inactive");
+    dispatch(setTimerState("inactive"));
   }
 
   const onBreak = () => {
-    setTimerState("break");
+    dispatch(setTimerState("break"));
   }
 
   const onFinishBreak = () => {
-    setTimerState("completed break");
+    dispatch(setTimerState("completed break"));
   }
 
   return (

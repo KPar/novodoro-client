@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { useSelector } from 'react-redux';
+import { selectTimerState } from '../../store';
 import TimerDisplayContent from './TimerDisplayContent';
 
 interface Props {
-  timerState: string;
   timeLeft: number;
 }
 
-function TimerDisplay({ timerState, timeLeft }: Props) {
+function TimerDisplay({timeLeft }: Props) {
+  const timerState = useSelector(selectTimerState)
   const timeLeftRef = useRef<HTMLHeadingElement>(null);
 
 
@@ -21,7 +23,7 @@ function TimerDisplay({ timerState, timeLeft }: Props) {
         "TimerDisplay_normalTimerStateHeader" : "TimerDisplay_bigTimerStateHeader"}>
         {timerState.toUpperCase()}
       </h1>
-      <TimerDisplayContent timeLeft={timeLeft} timerState={timerState} />
+      <TimerDisplayContent timeLeft={timeLeft}/>
     </div>
   )
 }
