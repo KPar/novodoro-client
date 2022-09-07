@@ -13,15 +13,15 @@ function App() {
 
   return (
     <div>
-      <Navigation />
+      {/* <Navigation /> */}
       <div id="App_timerContainer">
         <div>
           <TimerDisplay/>
           <TimerController />
         </div>
       </div>
-      <EditTimerDialog />
-      <WelcomePopUp />
+      {/* <EditTimerDialog />
+      <WelcomePopUp /> */}
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import calculateMinuteRateArray from "./calculateMinuteRateArray";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentMinute, selectTimerState, selectTotalBreakTime, selectTotalTime } from "./store";
 import { setTimerState } from './features/timerStateSlice';
@@ -29,6 +28,19 @@ const useTimer = () => {
         runningTimeoutRef.current = setTimeout(startBreakTimer, 1000 * 60);
     }
 
+    async function getMinuteRateArray(){
+        try{
+            let res = await fetch(`http://localhost:3001/minuteRateArray/${totalTime}`, {mode: 'cors'});
+            if(res.status===200){
+                let dataRes = await res.json();               
+                minuteRateArray.current = dataRes;                
+                console.log("yess "+dataRes+" mra:"+minuteRateArray.current)
+            }
+        } catch (err){
+            console.log(err);
+        }
+    }
+
     useEffect(() => {
 
         if (timerState === "active") {
@@ -38,10 +50,8 @@ const useTimer = () => {
             dispatch(setCurrentMinute(0));
             clearTimeout(runningTimeoutRef.current);
             minuteRateIndex.current = 0;
-            minuteRateArray.current = [];
-            minuteRateArray.current = [1, 1, 1]//calculateMinuteRateArray(totalTime);
-
-            //TODO: if there's a server error, then just pass in a [60,60,60]
+            minuteRateArray.current = [60,60,60]; //default to On Time, if we fail to fetch MinuteRateArray
+            getMinuteRateArray();
         } else if (timerState === "paused") {
             clearTimeout(runningTimeoutRef.current);
         } else if (timerState === "break") {
