@@ -30,7 +30,7 @@ const useTimer = () => {
 
     async function getMinuteRateArray(){
         try{
-            let res = await fetch(`http://localhost:3001/minuteRateArray/${totalTime}`, {mode: 'cors'});
+            let res = await fetch(`https://novodoro.herokuapp.com/minuteRateArray/${totalTime}`, {mode: 'cors'});
             if(res.status===200){
                 let dataRes = await res.json();               
                 minuteRateArray.current = dataRes;                
