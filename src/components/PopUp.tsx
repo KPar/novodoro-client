@@ -1,6 +1,8 @@
 import { useState } from "react"
 
 function PopUp() {
+  const [isPopUpVisible, setIsPopUpVisible] = useState(true);
+  const [isDropdownToggled, setIsDropdownToggled] = useState(false);
 
   return (
     <div id="PopUp_container">
