@@ -34,9 +34,20 @@ h1,h3 {
 }
 
 /* PopUp */
-#PopUp_container {
+#PopUp_wrapper {
     position: absolute;
     top: 0;
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    place-items: center;
+}
+
+#PopUp_container {
+    background-color: rgba(0, 0, 0, 0.901);
+    border-radius: 25px;
+    padding: 25px;
+    max-width: 600px;
 }
 
 /* TimerDisplay */
