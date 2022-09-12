@@ -3,7 +3,7 @@ import EditTimerDialog from "./components/EditTimerDialog";
 import Navigation from "./components/Navigation";
 import TimerController from "./components/TimerController";
 import TimerDisplay from "./components/TimerDisplay/TimerDisplay";
-import WelcomePopUp from "./components/WelcomePopUp";
+import PopUp from "./components/PopUp";
 import './index.css';
 import useTimer from "./useTimer";
 
@@ -20,8 +20,8 @@ function App() {
           <TimerController />
         </div>
       </div>
-      {/* <EditTimerDialog />
-      <WelcomePopUp /> */}
+      {/* <EditTimerDialog /> */}
+      <PopUp />
     </div>
   );
 }
