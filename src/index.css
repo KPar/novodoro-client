@@ -2,7 +2,7 @@
 
 body {
     background: linear-gradient(180deg, #3b5cab 0%, #0f182c 100%);
-    background-color: #182848;
+    background-color: #0f182c;
     color: white;
     margin:0 auto;
     font-weight: 400;
@@ -24,8 +24,9 @@ h1,h3 {
     user-select: none;
 }
 
-p,li {
+p,li,ul {
     user-select: none;
+    margin: 0px 0px 10px 0px;
 }
 
 /* Navigation */
@@ -54,11 +55,11 @@ p,li {
     padding: 25px;
     margin: 25px;
     max-width: 400px;
+
 }
 
 #PopUp_toggleAbout {
-    display: grid;
-    place-items: center;
+
 }
 
 #PopUp_toggleAboutContent {
@@ -74,7 +75,7 @@ p,li {
     font-family: "Source Sans Pro", sans-serif;
     font-size: 15px;
     padding: 10px 18px 10px 18px;
-    margin: 15px;
+    margin: 10px;
     letter-spacing: 2px;
     background-color: rgba(30, 73, 116, 0.656);
     color: white;
@@ -89,7 +90,7 @@ p,li {
     font-family: "Source Sans Pro", sans-serif;
     font-size: 15px;
     padding: 10px 18px 10px 18px;
-    margin: 15px;
+    margin: 10px;
     letter-spacing: 2px;
     background-color: rgba(51, 115, 179, 0.656);
     color: white;
@@ -103,7 +104,7 @@ p,li {
     font-family: "Source Sans Pro", sans-serif;
     font-size: 15px;
     padding: 10px 18px 10px 18px;
-    margin: 15px;
+    margin: 10px;
     letter-spacing: 2px;
     background-color: #dddddd1d;
     color: white;
@@ -118,7 +119,7 @@ p,li {
     font-family: "Source Sans Pro", sans-serif;
     font-size: 15px;
     padding: 10px 18px 10px 18px;
-    margin: 15px;
+    margin: 10px;
     letter-spacing: 2px;
     background-color: #dddddd3d;
     color: white;
