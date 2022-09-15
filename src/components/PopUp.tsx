@@ -34,7 +34,7 @@ function PopUp() {
             <p id="PopUp_toggleAboutContent" style={{ display: isAboutToggled ? "block" : "none" }}>
               Novodoro follows a Pomodoro structure but consistently changes the
               rate of time as the clock ticks. You will never know if the timer
-              will end early, on time, or late. Such unpredictability keeps you
+              will end early, on time, or late. 25 minutes may feel like 15 minutes. Such unpredictability keeps you
               on edge to finish your task and deters procrastination
             </p>
           </div>
