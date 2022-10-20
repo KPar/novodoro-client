@@ -17,6 +17,8 @@ const useTimer = () => {
     const minuteRateArray = useRef<number[]>([]);
     const rateSwitcherInterval = useRef(Math.ceil(totalTime / 3));
     const runningTimeoutRef = useRef<NodeJS.Timeout>();
+    const alarmSound = useRef(new Audio("./media/alarm.mp3"));
+
 
     const startTimer = () => {
         dispatch(incrementCurrentMinute(1));
@@ -43,7 +45,7 @@ const useTimer = () => {
 
     useEffect(() => {
 
-        if (timerState === "active") {
+        if (timerState === "active") {    
             runningTimeoutRef.current = setTimeout(startTimer, 1000 * minuteRateArray.current[minuteRateIndex.current]);
         } else if (timerState === "inactive" || timerState === "completed") {
             //if inactive or completed, reset currentMinute
@@ -52,6 +54,9 @@ const useTimer = () => {
             minuteRateIndex.current = 0;
             minuteRateArray.current = [60,60,60]; //default to On Time, if we fail to fetch MinuteRateArray
             getMinuteRateArray();
+            if(timerState === "completed"){    
+                alarmSound.current.play();            
+            }
         } else if (timerState === "paused") {
             clearTimeout(runningTimeoutRef.current);
         } else if (timerState === "break") {
@@ -60,6 +65,7 @@ const useTimer = () => {
             runningTimeoutRef.current = setTimeout(startBreakTimer, 1000 * 60);
         } else if (timerState === "completed break") {
             //once completed break, reset currentMinute
+            alarmSound.current.play();            
             dispatch(setCurrentMinute(0));
             clearTimeout(runningTimeoutRef.current);
         }
